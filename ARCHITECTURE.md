@@ -17,23 +17,22 @@ Below is a practical, team-friendly architecture and a set of concrete code exam
 ```
 src/
 ├─ reversi/
-│  ├─ domain/           # pure domain logic: rules, board, types, exceptions
-│  ├─ application/      # use-cases / services / game engine orchestrator
-│  ├─ ports/            # abstract interfaces (repositories, UI ports, event bus)
-│  ├─ adapters/         # concrete implementations: console UI, pygame UI, AI strategies
-│  ├─ infra/            # infrastructure: logging, config, persistence (if any)
-│  └─ cli.py            # entrypoint for console app
-tests/
-├─ unit/
-└─ integration/
+├─ domain/           # pure domain logic: rules, board, types, exceptions
+├─ application/      # use-cases / services / game engine orchestrator
+├─ ports/            # abstract interfaces (repositories, UI ports, event bus)
+├─ adapters/         # concrete implementations: console UI, pygame UI, AI strategies
+├─ infrastructure/   # infrastructure: logging, config, persistence (if any)
+├─ launchers/        # different launchers for console/gui/web versions
+└─ main.py           # entrypoint for app
 ```
 
 * **domain:** Entities and business rules. No IO, no presentation.
 * **application:** Use cases. Orchestrates domain and calls ports (interfaces).
 * **ports:** Define interfaces (abstract base classes) the application depends on — UI, AI, persistence.
 * **adapters:** Concrete implementations of ports. Examples: `ConsoleUI`, `PygameUI`, `RandomAI`, `MinimaxAI`.
-* **infra:** Logging, configuration, DI wiring.
-* **cli.py / gui_launcher.py:** Compose dependencies and start the app.
+* **infrastructure:** Logging, configuration, DI wiring.
+* **launchers:** Console, GUI, and Web launchers.
+* **main.py:** Compose dependencies and start the app.
 
 This is a classic Hexagonal / Ports-and-Adapters approach combined with Clean Architecture.
 
@@ -52,7 +51,7 @@ This is a classic Hexagonal / Ports-and-Adapters approach combined with Clean Ar
 
 ---
 
-# Core domain objects (concepts)
+# Core domain objects (Concepts)
 
 * `Color` enum: BLACK, WHITE, EMPTY
 * `Position` (row, col)
@@ -410,11 +409,10 @@ def test_simple_flip():
 
 ---
 
-# Repository layout suggestion
+# Repository Layout (Example)
 
 ```
-reversi/                # package root
-├─ __init__.py
+src/                # package root
 ├─ domain/
 │  ├─ __init__.py
 │  ├─ types.py
@@ -431,12 +429,13 @@ reversi/                # package root
 │  ├─ pygame_ui.py        # later
 │  ├─ random_ai.py
 │  └─ minimax_ai.py
-├─ infra/
+├─ infrastructure/
 │  └─ logging.py
-└─ cli.py
-tests/
-pyproject.toml
-README.md
+├─ launchers/
+│  ├─ console_launcher.py
+│  ├─ graphical_launcher.py
+│  └─ web_launcher.py
+└─ main.py
 ```
 
 ---
