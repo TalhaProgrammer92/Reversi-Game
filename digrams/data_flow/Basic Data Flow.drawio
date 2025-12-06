@@ -1,0 +1,61 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/143.0.0.0 Safari/537.36" version="29.2.4">
+  <diagram name="Page-1" id="arAEDMyTclS0s5FRnImP">
+    <mxGraphModel dx="1106" dy="540" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-3" parent="1" style="swimlane;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Domain" vertex="1">
+          <mxGeometry height="80" width="140" x="320" y="270" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-1" parent="-GnUhJ-7FPahy_k10Nwi-3" style="rounded=1;whiteSpace=wrap;html=1;arcSize=50;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Player" vertex="1">
+          <mxGeometry height="40" width="120" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-7" parent="1" style="swimlane;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Infrastructure" vertex="1">
+          <mxGeometry height="160" width="120" x="110" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-6" parent="-GnUhJ-7FPahy_k10Nwi-7" style="strokeWidth=2;html=1;shape=mxgraph.flowchart.multi-document;whiteSpace=wrap;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Database" vertex="1">
+          <mxGeometry height="60" width="100" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-21" parent="-GnUhJ-7FPahy_k10Nwi-7" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Logging/Auth" vertex="1">
+          <mxGeometry height="50" width="85" x="17.5" y="100" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-10" edge="1" parent="1" source="-GnUhJ-7FPahy_k10Nwi-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-11" parent="1" style="swimlane;whiteSpace=wrap;html=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Application" vertex="1">
+          <mxGeometry height="300" width="170" x="530" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-15" edge="1" parent="-GnUhJ-7FPahy_k10Nwi-11" source="-GnUhJ-7FPahy_k10Nwi-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-12" parent="-GnUhJ-7FPahy_k10Nwi-11" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Player Services" vertex="1">
+          <mxGeometry height="50" width="150" x="10" y="30" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-19" edge="1" parent="-GnUhJ-7FPahy_k10Nwi-11" source="-GnUhJ-7FPahy_k10Nwi-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-17">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-14" parent="-GnUhJ-7FPahy_k10Nwi-11" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="Player Repository" vertex="1">
+          <mxGeometry height="50" width="150" x="10" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-20" edge="1" parent="-GnUhJ-7FPahy_k10Nwi-11" source="-GnUhJ-7FPahy_k10Nwi-17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-17" parent="-GnUhJ-7FPahy_k10Nwi-11" style="shape=step;perimeter=stepPerimeter;whiteSpace=wrap;html=1;fixedSize=1;labelBackgroundColor=none;fillColor=#B2C9AB;strokeColor=#788AA3;fontColor=#46495D;" value="General Repository" vertex="1">
+          <mxGeometry height="50" width="150" x="10" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-16" edge="1" parent="1" source="-GnUhJ-7FPahy_k10Nwi-14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="-GnUhJ-7FPahy_k10Nwi-22" edge="1" parent="1" source="-GnUhJ-7FPahy_k10Nwi-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;labelBackgroundColor=none;strokeColor=#788AA3;fontColor=default;" target="-GnUhJ-7FPahy_k10Nwi-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="260" y="325" />
+              <mxPoint x="260" y="360" />
+              <mxPoint x="390" y="360" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
