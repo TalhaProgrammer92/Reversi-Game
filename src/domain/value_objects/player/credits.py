@@ -1,2 +1,0 @@
-class Credits:
-    pass
