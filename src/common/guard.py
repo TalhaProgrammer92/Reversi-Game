@@ -1,18 +1,7 @@
 from string import whitespace
 
-def isOnlyWhitespace(value: str) -> bool:
-    for c in value:
-        if c not in whitespace:
-            return False
-    return True
-
 
 class Guard:
-    @staticmethod
-    def againstTypeMismatch(value, _type: type, name: str) -> None:
-        if not isinstance(value, type):
-            raise Exception(f"{name.capitalize()} is not of type '{_type}'")
-
     @staticmethod
     def againstEmptyOrWhitespace(value: str, name: str) -> None:
         """
