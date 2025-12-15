@@ -3,13 +3,12 @@ from value_objects.player.score import Score
 from value_objects.player.credits import Credits
 from common.base_entity import BaseEntity
 from common.guard import Guard
-from uuid import uuid4
 
 
 class Player(BaseEntity):
     # Constructors
     def __init__(self, **kwargs):
-        super().__init__(id=kwargs.get('id', uuid4()))
+        super().__init__(id=kwargs.get('id', 0))
 
         self.__username: str = kwargs.get('username', 'Unknown')
         self.__score: Score = kwargs.get('score', Score())
