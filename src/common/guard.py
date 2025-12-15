@@ -1,14 +1,18 @@
-from string import whitespace
-
-
 class Guard:
     @staticmethod
-    def againstEmptyOrWhitespace(value: str, name: str) -> None:
+    def againstDifferentLengths(*args: str | list | tuple) -> None:
         """
-        This method raises exception in case of an empty string or contains whitespaces
+        This method checks if length of given args are same or not
         """
-        if len(value) == 0 or isOnlyWhitespace(name):
-            raise Exception(f"{name.capitalize()} can't be empty or whitespace")
+        items = [item for item in args]
+        if len(items) == 0:
+            return
+
+        length = len(items[0])
+        for i in range(len(items)):
+            if length != len(items[i]):
+                raise Exception("Length of list items must of same")
+
 
     @staticmethod
     def againstNull(value, name: str) -> None:

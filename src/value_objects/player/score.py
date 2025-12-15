@@ -17,7 +17,7 @@ class Score:
         return self.__score
 
     @staticmethod
-    def create(value: int = 0) -> Score:
+    def create(value: int = 0) -> 'Score':
         """
         This method creates a new object
         """
