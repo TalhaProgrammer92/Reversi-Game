@@ -1,17 +1,16 @@
-from uuid import UUID, uuid4
 from datetime import datetime as dt
 
 
 class BaseEntity:
     # Constructor
     def __init__(self, **kwargs):
-        self._id: UUID = kwargs.get('id', uuid4())
+        self._id: int = kwargs.get('id', 0)
         self._created_at: dt = kwargs.get('created_at', dt.now())
         self._updated_at: dt = kwargs.get('updated_at', dt.now())
 
     # Getters
     @property
-    def id(self) -> UUID:
+    def id(self) -> int:
         return self._id
 
     @property
