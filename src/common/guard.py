@@ -1,5 +1,20 @@
 class Guard:
     @staticmethod
+    def againstDifferentLengths(*args: str | list | tuple) -> None:
+        """
+        This method checks if length of given args are same or not
+        """
+        items = [item for item in args]
+        if len(items) == 0:
+            return
+
+        length = len(items[0])
+        for i in range(len(items)):
+            if length != len(items[i]):
+                raise Exception("Length of list items must of same")
+
+
+    @staticmethod
     def againstNull(value, name: str) -> None:
         """
         This method raises exception in case of a 'None' value

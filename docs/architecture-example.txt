@@ -1,0 +1,22 @@
+src/
+|- common/
+|  |- base_entity.py
+|  |...
+|- enums/
+|  |- coin_state.py
+|  |...
+|- game_objects/
+|  |- player/
+|  |- coin/
+|  |...
+|- value_objects/
+|  |- player/
+|     |- email.py
+|     |...
+|- dtos/
+|- repositories/
+|- services/
+|- dpendencies/
+|- ports/
+|- launchers/
+|- main.py

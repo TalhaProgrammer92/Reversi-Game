@@ -1,11 +1,10 @@
 from common.base_entity import BaseEntity
 from enums.coin_state import CoinState
-from uuid import uuid4
 
 
 class Coin(BaseEntity):
     def __init__(self, **kwargs):
-        super().__init__(id=kwargs.get('id', uuid4()))
+        super().__init__(id=kwargs.get('id', 0))
 
         self.__coin_state: CoinState = kwargs.get('coin_state', CoinState.BLACK)
 
