@@ -1,5 +1,5 @@
+from enums.data_handler.data_type import DataType
 from datetime import datetime as dt
-from data.handlers.common import DataType
 
 
 class BaseAttribute:
