@@ -16,6 +16,14 @@ class BaseEntity:
         self._updated_at: dt = kwargs.get('updated_at', dt.now())
 
     @staticmethod
+    def getAttributesDict() -> dict:
+        return {
+            BaseAttribute.ID: BaseAttribute.ID,
+            BaseAttribute.CREATED_AT: BaseAttribute.CREATED_AT,
+            BaseAttribute.UPDATED_AT: BaseAttribute.UPDATED_AT
+        }
+
+    @staticmethod
     def getDatatypesWithAttributes() -> dict:
         return {
             BaseAttribute.ID: DataType.INTEGER,

@@ -25,12 +25,11 @@ class Coin(BaseEntity):
 
     @staticmethod
     def getAttributesDict() -> dict:
-        return {
-            CoinAttribute.ID: CoinAttribute.ID,
+        base: dict = BaseEntity.getAttributesDict()
+        coin: dict = {
             CoinAttribute.COIN_STATE: CoinAttribute.COIN_STATE.value,
-            CoinAttribute.CREATED_AT: CoinAttribute.CREATED_AT,
-            CoinAttribute.UPDATED_AT: CoinAttribute.UPDATED_AT
         }
+        return base | coin
 
     @property
     def values_dict(self) -> dict:

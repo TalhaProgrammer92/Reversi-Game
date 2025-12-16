@@ -46,15 +46,14 @@ class Player(BaseEntity):
 
     @staticmethod
     def getAttributesDict() -> dict:
-        return {
-            PlayerAttribute.ID: PlayerAttribute.ID,
+        base: dict = BaseEntity.getAttributesDict()
+        player: dict = {
             PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
             PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
             PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
             PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
-            PlayerAttribute.CREATED_AT: PlayerAttribute.CREATED_AT,
-            PlayerAttribute.UPDATED_AT: PlayerAttribute.UPDATED_AT
         }
+        return base | player
 
     @property
     def values_dict(self) -> dict:
