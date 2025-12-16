@@ -194,7 +194,7 @@ class DatabaseManager:
 
         # Add condition
         if condition is not None:
-            query += f'WHERE {condition.getConditionString()};'
+            query += f' WHERE {condition.getConditionString()};'
 
         # Fetch data from the database
         data: list = db_conn.fetchone(query)
@@ -211,7 +211,7 @@ class DatabaseManager:
         query = f'UPDATE {table_name} SET ' + ','.join([f"{attributes[i]} = {values[i]}" for i in range(len(attributes))])
 
         if condition is not None:
-            query += f"WHERE {condition.getConditionString()};"
+            query += f" WHERE {condition.getConditionString()};"
 
         db_conn.executeAndCommit(query)
 
