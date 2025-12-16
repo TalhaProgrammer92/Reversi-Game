@@ -154,7 +154,10 @@ class DatabaseManager:
 
 # Testing - Code
 if __name__ == '__main__':
+    # Get data-types dictionary
     types: dict = Player.getDatetypesWithAttributes()
+
+    # Get attributes of and create TableItem list
     attributes: dict = Player.getAttributesDict()
     table_items: list[TableItem] = [TableItem(
         name=attributes[PlayerAttribute.ID],
@@ -170,6 +173,7 @@ if __name__ == '__main__':
         ) for i in range(1, len(attributes_values))
     ])
 
+    # Generate query to create table
     DatabaseManager.createTable(
         table_name=Player.table_name(),
         table_items=table_items
