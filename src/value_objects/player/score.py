@@ -1,4 +1,4 @@
-from common.guard import Guard
+from shield.guard import Guard
 
 
 class Score:
