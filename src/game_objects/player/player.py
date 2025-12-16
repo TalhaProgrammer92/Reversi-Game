@@ -7,7 +7,7 @@ from data.handlers.common import DataType
 from enum import Enum
 
 
-class PlayerAttribute(BaseAttributesMixin, Enum):
+class PlayerAttribute(BaseAttribute, Enum):
     USERNAME = 'username'
     EMAIL = 'email'
     SCORE = 'score'
@@ -46,15 +46,14 @@ class Player(BaseEntity):
 
     @staticmethod
     def getAttributesDict() -> dict:
-        return {
-            PlayerAttribute.ID: PlayerAttribute.ID,
+        base: dict = BaseEntity.getAttributesDict()
+        player: dict = {
             PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
             PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
             PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
             PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
-            PlayerAttribute.CREATED_AT: PlayerAttribute.CREATED_AT,
-            PlayerAttribute.UPDATED_AT: PlayerAttribute.UPDATED_AT
         }
+        return base | player
 
     @property
     def values_dict(self) -> dict:
@@ -69,11 +68,11 @@ class Player(BaseEntity):
         }
 
     @staticmethod
-    def getDatetypesWithAttributes() -> dict:
+    def getDatatypesWithAttributes() -> dict:
         """
         This method returns a dictionary with the key-value pairs of attribute name and its datatype
         """
-        base: dict = BaseEntity.getDatetypesWithAttributes()
+        base: dict = BaseEntity.getDatatypesWithAttributes()
         player: dict = {
             PlayerAttribute.USERNAME.value: DataType.TEXT,
             PlayerAttribute.EMAIL.value: DataType.TEXT,
@@ -90,7 +89,7 @@ class Player(BaseEntity):
         """
         This method increases score of the player
         """
-        Guard.againstZeroOrLess(value, 'value')
+        Guard.againstZeroOrLess(value, 'score')
         self.__score = Score.create(self.score.value + value)
         self.update()
 
@@ -164,3 +163,4 @@ if __name__ == '__main__':
     )
 
     print(player.values_dict[PlayerAttribute.EMAIL], player.email.value, sep=' <> ')
+    # print(player.getAttributesDict().__doc__)
