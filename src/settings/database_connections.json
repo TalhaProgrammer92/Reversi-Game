@@ -1,0 +1,10 @@
+{
+    "general": {
+        "file": "general.db",
+        "path": "/data/save"
+    },
+    "saved-games": {
+        "slots": [],
+        "path": "/data/slots"
+    }
+}

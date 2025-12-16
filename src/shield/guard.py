@@ -1,11 +1,19 @@
 class Guard:
     @staticmethod
-    def againstRange(start: int, end: int, value: int, name: str) -> None:
+    def againstOutOfRange(start: int, end: int, value: int, name: str) -> None:
         """
         This method checks if the given value is in range or not
         """
         if value < start or value > end:
             raise Exception(f"{name.capitalize()} is out of given range ({start}, {end})")
+
+    @staticmethod
+    def againstEmpty(value: str | list | tuple, name: str) -> None:
+        """
+        This method checks if the given value is empty or not
+        """
+        if len(value) == 0:
+            raise Exception(f"{name.capitalize()} can't be empty")
 
     @staticmethod
     def againstDifferentLengths(*args: str | list | tuple) -> None:

@@ -1,17 +1,10 @@
 from value_objects.player.email import Email
 from value_objects.player.score import Score
 from value_objects.player.credits import Credits
-from game_objects.base_entity import *
+from game_objects.base_entity import BaseEntity
+from enums.data_handler.data_type import DataType
+from enums.player.player_attribute import PlayerAttribute
 from shield.guard import Guard
-from data.handlers.common import DataType
-from enum import Enum
-
-
-class PlayerAttribute(BaseAttribute, Enum):
-    USERNAME = 'username'
-    EMAIL = 'email'
-    SCORE = 'score'
-    CREDITS = 'credits'
 
 
 class Player(BaseEntity):

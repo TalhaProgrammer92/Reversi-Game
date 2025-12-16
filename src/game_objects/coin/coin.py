@@ -1,11 +1,7 @@
 from game_objects.base_entity import *
-from enums.coin_state import CoinState
-from data.handlers.common import DataType
-from enum import Enum
-
-
-class CoinAttribute(BaseAttribute, Enum):
-    COIN_STATE = 'state'
+from enums.coin.coin_state import CoinState
+from enums.coin.coin_attribute import CoinAttribute
+from enums.data_handler.data_type import DataType
 
 
 class Coin(BaseEntity):
