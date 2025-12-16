@@ -1,4 +1,11 @@
 from datetime import datetime as dt
+from data.handlers.database_handler import DataType
+
+
+class BaseAttributesMixin:
+    ID = 'id'
+    CREATED_AT = 'created_at'
+    UPDATED_AT = 'updated_at'
 
 
 class BaseEntity:
@@ -8,7 +15,18 @@ class BaseEntity:
         self._created_at: dt = kwargs.get('created_at', dt.now())
         self._updated_at: dt = kwargs.get('updated_at', dt.now())
 
-    # Getters
+    @staticmethod
+    def getDatetypesWithAttributes() -> dict:
+        return {
+            BaseAttributesMixin.ID: DataType.INTEGER,
+            BaseAttributesMixin.CREATED_AT: DataType.TEXT,
+            BaseAttributesMixin.UPDATED_AT: DataType.TEXT
+        }
+
+    ###########
+    # Getters #
+    ###########
+
     @property
     def id(self) -> int:
         return self._id

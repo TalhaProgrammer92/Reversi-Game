@@ -1,5 +1,11 @@
-from common.base_entity import BaseEntity
+from game_objects.base_entity import *
 from enums.coin_state import CoinState
+from data.handlers.common import DataType
+from enum import Enum
+
+
+class CoinAttribute(BaseAttributesMixin, Enum):
+    COIN_STATE = 'state'
 
 
 class Coin(BaseEntity):
@@ -8,10 +14,42 @@ class Coin(BaseEntity):
 
         self.__coin_state: CoinState = kwargs.get('coin_state', CoinState.BLACK)
 
-    # Getter
+    ###########
+    # Getters #
+    ###########
+
     @property
     def state(self) -> CoinState:
         return self.__coin_state
+
+    @staticmethod
+    def getAttributesDict() -> dict:
+        return {
+            CoinAttribute.ID: CoinAttribute.ID,
+            CoinAttribute.COIN_STATE: CoinAttribute.COIN_STATE.value,
+            CoinAttribute.CREATED_AT: CoinAttribute.CREATED_AT,
+            CoinAttribute.UPDATED_AT: CoinAttribute.UPDATED_AT
+        }
+
+    @property
+    def values_dict(self) -> dict:
+        return {
+            CoinAttribute.ID: f'{self.id}',
+            CoinAttribute.COIN_STATE: f'{self.state.value}',
+            CoinAttribute.CREATED_AT: f'"{self.created_at}"',
+            CoinAttribute.UPDATED_AT: f'"{self.updated_at}"'
+        }
+
+    @staticmethod
+    def getDatetypesWithAttributes() -> dict:
+        """
+        This method returns a dictionary with the key-value pairs of attribute name and its datatype
+        """
+        base: dict = BaseEntity.getDatetypesWithAttributes()
+        coin: dict = {
+            CoinAttribute.COIN_STATE.value: DataType.NUMERIC
+        }
+        return base | coin
 
     ######################
     # Update Coin States #
@@ -31,6 +69,17 @@ class Coin(BaseEntity):
         self.__coin_state = CoinState.BLACK
         self.update()
 
+    ########
+    # Misc #
+    ########
+
+    @staticmethod
+    def table_name() -> str:
+        """
+        This method returns table name for the coint entity
+        """
+        return 'Coins'
+
     def displayInfo(self) -> None:
         """
         This method display's complete information of a coin - Can be used for debugging
@@ -40,3 +89,11 @@ Id:         {self.id}
 State:      {self.state.name}
 Created:    {self.created_at}
 Updated:    {self.updated_at}""")
+
+if __name__ == '__main__':
+    coin: Coin = Coin(id=2, coin_state=CoinState.BLACK)
+    print(
+        ' --- '.join(coin.getAttributesDict().values()),
+        ' --- '.join(coin.values_dict.values()),
+        sep='\n'
+    )
