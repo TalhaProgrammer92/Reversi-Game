@@ -4,7 +4,7 @@ from data.handlers.common import DataType
 from enum import Enum
 
 
-class CoinAttribute(BaseAttributesMixin, Enum):
+class CoinAttribute(BaseAttribute, Enum):
     COIN_STATE = 'state'
 
 
@@ -12,6 +12,7 @@ class Coin(BaseEntity):
     def __init__(self, **kwargs):
         super().__init__(id=kwargs.get('id', 0))
 
+        # self.__position: Position = kwargs.get('position', Position())
         self.__coin_state: CoinState = kwargs.get('coin_state', CoinState.BLACK)
 
     ###########
@@ -41,11 +42,11 @@ class Coin(BaseEntity):
         }
 
     @staticmethod
-    def getDatetypesWithAttributes() -> dict:
+    def getDatatypesWithAttributes() -> dict:
         """
         This method returns a dictionary with the key-value pairs of attribute name and its datatype
         """
-        base: dict = BaseEntity.getDatetypesWithAttributes()
+        base: dict = BaseEntity.getDatatypesWithAttributes()
         coin: dict = {
             CoinAttribute.COIN_STATE.value: DataType.NUMERIC
         }

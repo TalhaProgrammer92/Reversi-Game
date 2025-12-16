@@ -1,8 +1,8 @@
 from datetime import datetime as dt
-from data.handlers.database_handler import DataType
+from data.handlers.common import DataType
 
 
-class BaseAttributesMixin:
+class BaseAttribute:
     ID = 'id'
     CREATED_AT = 'created_at'
     UPDATED_AT = 'updated_at'
@@ -16,11 +16,11 @@ class BaseEntity:
         self._updated_at: dt = kwargs.get('updated_at', dt.now())
 
     @staticmethod
-    def getDatetypesWithAttributes() -> dict:
+    def getDatatypesWithAttributes() -> dict:
         return {
-            BaseAttributesMixin.ID: DataType.INTEGER,
-            BaseAttributesMixin.CREATED_AT: DataType.TEXT,
-            BaseAttributesMixin.UPDATED_AT: DataType.TEXT
+            BaseAttribute.ID: DataType.INTEGER,
+            BaseAttribute.CREATED_AT: DataType.TEXT,
+            BaseAttribute.UPDATED_AT: DataType.TEXT
         }
 
     ###########
@@ -44,3 +44,9 @@ class BaseEntity:
         This method updates 'updated_at' time for an entity
         """
         self._updated_at = dt.now()
+
+
+if __name__ == '__main__':
+    base: BaseEntity = BaseEntity(id=2)
+    print(base.id, base.created_at, base.updated_at, sep=' --- ')
+    print(BaseAttribute.ID, BaseAttribute.CREATED_AT, BaseAttribute.UPDATED_AT)

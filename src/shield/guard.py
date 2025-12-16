@@ -1,5 +1,13 @@
 class Guard:
     @staticmethod
+    def againstRange(start: int, end: int, value: int, name: str) -> None:
+        """
+        This method checks if the given value is in range or not
+        """
+        if value < start or value > end:
+            raise Exception(f"{name.capitalize()} is out of given range ({start}, {end})")
+
+    @staticmethod
     def againstDifferentLengths(*args: str | list | tuple) -> None:
         """
         This method checks if length of given args are same or not

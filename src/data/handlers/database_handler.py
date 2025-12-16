@@ -87,7 +87,7 @@ class DatabaseManager:
         """
         This method creates a table inside database if it doesn't exist
         """
-        query: str = f'CREATE TABLE IF NOT EXISTS {table_name}(' + ', '.join([item.generateHeader() for item in table_items]) + ')'
+        query: str = f"CREATE TABLE IF NOT EXISTS {table_name}({', '.join([item.generateHeader() for item in table_items])})"
         print(query)    # Debugging
         # db_conn.executeAndCommit(query)
 
@@ -155,7 +155,7 @@ class DatabaseManager:
 # Testing - Code
 if __name__ == '__main__':
     # Get data-types dictionary
-    types: dict = Player.getDatetypesWithAttributes()
+    types: dict = Player.getDatatypesWithAttributes()
 
     # Get attributes of and create TableItem list
     attributes: dict = Player.getAttributesDict()
