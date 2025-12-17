@@ -1,5 +1,4 @@
 from pathlib import Path
-from os import makedirs
 import json
 
 def load_json(path: Path) -> dict:

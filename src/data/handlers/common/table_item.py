@@ -53,3 +53,7 @@ class TableItem:
                 header += ' ON DELETE SET NULL'
 
         return header
+
+    @staticmethod
+    def createHeaders(*args: TableItem) -> str:
+        return ', '.join([item.generateHeader() for item in args])

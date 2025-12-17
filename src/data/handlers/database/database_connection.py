@@ -1,20 +1,27 @@
 import sqlite3 as sq
-import os.path as p
+import os
 
-def create_file(path: str):
+def create_file(path: str, file: str):
     """
     This function creates file if it doesn't exist at given path
     """
+    if len(path) > 0:
+        os.makedirs(path, exist_ok=True)
+
     # Create the file if it does not exist
-    if not p.exists(path):
-        with open(path, "w"):
+    full_path = os.path.join(path, file)
+    if not os.path.exists(full_path):
+        with open(full_path, "w"):
             pass
 
 
 class DatabaseConnection:
-    def __init__(self, path):
-        create_file(path)
-        self.__database: sq.Connection = sq.connect(path)
+    def __init__(self, **kwargs):
+        path: str = kwargs.get('path', '')
+        file: str = kwargs.get('file', 'file.db')
+        create_file(path, file)
+
+        self.__database: sq.Connection = sq.connect(os.path.join(path, file))
         self.__cursor: sq.Cursor = self.__database.cursor()
 
     def executeAndCommit(self, query: str) -> None:
