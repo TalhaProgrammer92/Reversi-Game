@@ -38,27 +38,38 @@ class Player(BaseEntity):
         return self.__email
 
     @staticmethod
-    def getAttributesDict() -> dict:
-        base: dict = BaseEntity.getAttributesDict()
-        player: dict = {
-            PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
-            PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
-            PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
-            PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
-        }
-        return base | player
+    def getAttributes() -> list[str]:
+        _list = BaseEntity.getAttributes()
+        _list.extend([
+            PlayerAttribute.USERNAME.value,
+            PlayerAttribute.EMAIL.value,
+            PlayerAttribute.SCORE.value,
+            PlayerAttribute.CREDITS.value
+        ])
+        return _list
 
-    @property
-    def values_dict(self) -> dict:
-        return {
-            PlayerAttribute.ID: f'{self.id}',
-            PlayerAttribute.USERNAME: f'"{self.username}"',
-            PlayerAttribute.EMAIL: f'"{self.email.value}"',
-            PlayerAttribute.SCORE: f'{self.score.value}',
-            PlayerAttribute.CREDITS: f'{self.credits.value}',
-            PlayerAttribute.CREATED_AT: f'"{self.created_at}"',
-            PlayerAttribute.UPDATED_AT: f'"{self.updated_at}"'
-        }
+    # @staticmethod
+    # def getAttributesDict() -> dict:
+    #     base: dict = BaseEntity.getAttributesDict()
+    #     player: dict = {
+    #         PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
+    #         PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
+    #         PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
+    #         PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
+    #     }
+    #     return base | player
+
+    # @property
+    # def values_dict(self) -> dict:
+    #     return {
+    #         PlayerAttribute.ID: f'{self.id}',
+    #         PlayerAttribute.USERNAME: f'"{self.username}"',
+    #         PlayerAttribute.EMAIL: f'"{self.email.value}"',
+    #         PlayerAttribute.SCORE: f'{self.score.value}',
+    #         PlayerAttribute.CREDITS: f'{self.credits.value}',
+    #         PlayerAttribute.CREATED_AT: f'"{self.created_at}"',
+    #         PlayerAttribute.UPDATED_AT: f'"{self.updated_at}"'
+    #     }
 
     @staticmethod
     def getDatatypesWithAttributes() -> dict:

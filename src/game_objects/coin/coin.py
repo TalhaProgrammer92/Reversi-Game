@@ -20,21 +20,29 @@ class Coin(BaseEntity):
         return self.__coin_state
 
     @staticmethod
-    def getAttributesDict() -> dict:
-        base: dict = BaseEntity.getAttributesDict()
-        coin: dict = {
-            CoinAttribute.COIN_STATE: CoinAttribute.COIN_STATE.value,
-        }
-        return base | coin
+    def getAttributes() -> list:
+        _list = BaseEntity.getAttributes()
+        _list.extend([
+            CoinAttribute.COIN_STATE
+        ])
+        return _list
 
-    @property
-    def values_dict(self) -> dict:
-        return {
-            CoinAttribute.ID: f'{self.id}',
-            CoinAttribute.COIN_STATE: f'{self.state.value}',
-            CoinAttribute.CREATED_AT: f'"{self.created_at}"',
-            CoinAttribute.UPDATED_AT: f'"{self.updated_at}"'
-        }
+    # @staticmethod
+    # def getAttributesDict() -> dict:
+    #     base: dict = BaseEntity.getAttributesDict()
+    #     coin: dict = {
+    #         CoinAttribute.COIN_STATE: CoinAttribute.COIN_STATE.value,
+    #     }
+    #     return base | coin
+
+    # @property
+    # def values_dict(self) -> dict:
+    #     return {
+    #         CoinAttribute.ID: f'{self.id}',
+    #         CoinAttribute.COIN_STATE: f'{self.state.value}',
+    #         CoinAttribute.CREATED_AT: f'"{self.created_at}"',
+    #         CoinAttribute.UPDATED_AT: f'"{self.updated_at}"'
+    #     }
 
     @staticmethod
     def getDatatypesWithAttributes() -> dict:
