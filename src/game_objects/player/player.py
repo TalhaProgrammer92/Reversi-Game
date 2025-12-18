@@ -37,53 +37,58 @@ class Player(BaseEntity):
     def email(self) -> Email:
         return self.__email
 
-    @staticmethod
-    def getAttributes() -> list[str]:
-        _list = BaseEntity.getAttributes()
-        _list.extend([
-            PlayerAttribute.USERNAME.value,
-            PlayerAttribute.EMAIL.value,
-            PlayerAttribute.SCORE.value,
-            PlayerAttribute.CREDITS.value
-        ])
-        return _list
+    @property
+    def primary_key(self) -> PlayerAttribute:
+        return PlayerAttribute.ID
 
-    # @staticmethod
-    # def getAttributesDict() -> dict:
-    #     base: dict = BaseEntity.getAttributesDict()
-    #     player: dict = {
-    #         PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
-    #         PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
-    #         PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
-    #         PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
-    #     }
-    #     return base | player
-
-    # @property
-    # def values_dict(self) -> dict:
-    #     return {
-    #         PlayerAttribute.ID: f'{self.id}',
-    #         PlayerAttribute.USERNAME: f'"{self.username}"',
-    #         PlayerAttribute.EMAIL: f'"{self.email.value}"',
-    #         PlayerAttribute.SCORE: f'{self.score.value}',
-    #         PlayerAttribute.CREDITS: f'{self.credits.value}',
-    #         PlayerAttribute.CREATED_AT: f'"{self.created_at}"',
-    #         PlayerAttribute.UPDATED_AT: f'"{self.updated_at}"'
-    #     }
+    ##########################
+    # Attributes & DataTypes #
+    ##########################
 
     @staticmethod
-    def getDatatypesWithAttributes() -> dict:
+    def getAttributesList() -> list[PlayerAttribute]:
         """
-        This method returns a dictionary with the key-value pairs of attribute name and its datatype
+        This method returns a list of attributes
         """
-        base: dict = BaseEntity.getDatatypesWithAttributes()
-        player: dict = {
-            PlayerAttribute.USERNAME.value: DataType.TEXT,
-            PlayerAttribute.EMAIL.value: DataType.TEXT,
-            PlayerAttribute.SCORE.value: DataType.INTEGER,
-            PlayerAttribute.CREDITS.value: DataType.INTEGER
+        return [
+            PlayerAttribute.ID,
+            PlayerAttribute.USERNAME,
+            PlayerAttribute.EMAIL,
+            PlayerAttribute.SCORE,
+            PlayerAttribute.CREDITS,
+            PlayerAttribute.CREATED_AT,
+            PlayerAttribute.UPDATED_AT
+        ]
+
+    @property
+    def values_dict(self) -> dict:
+        """
+        This method returns a dictionary of values
+        """
+        return {
+            PlayerAttribute.ID: f'{self.id}',
+            PlayerAttribute.USERNAME: f'"{self.username}"',
+            PlayerAttribute.EMAIL: f'"{self.email.value}"',
+            PlayerAttribute.SCORE: f'{self.score.value}',
+            PlayerAttribute.CREDITS: f'{self.credits.value}',
+            PlayerAttribute.CREATED_AT: f'"{self.created_at}"',
+            PlayerAttribute.UPDATED_AT: f'"{self.updated_at}"'
         }
-        return base | player
+
+    @staticmethod
+    def getDatatypes() -> dict[PlayerAttribute, DataType]:
+        """
+        This method returns a dictionary with the key-value pairs of attribute and its datatype
+        """
+        return {
+            PlayerAttribute.ID: DataType.INTEGER,
+            PlayerAttribute.USERNAME: DataType.TEXT,
+            PlayerAttribute.EMAIL: DataType.TEXT,
+            PlayerAttribute.SCORE: DataType.INTEGER,
+            PlayerAttribute.CREDITS: DataType.INTEGER,
+            PlayerAttribute.CREATED_AT: DataType.TEXT,
+            PlayerAttribute.UPDATED_AT: DataType.TEXT
+        }
 
     ################
     # Update Score #
@@ -150,21 +155,3 @@ Score:      {self.score.value}
 Credits:    {self.credits.value}
 Created:    {self.created_at}
 Updated:    {self.updated_at}""")
-
-if __name__ == '__main__':
-    player: Player = Player(
-        id=1,
-        username='Talha Ahmad',
-        email=Email('talha@gmail.com'),
-        score=Score(24),
-        credits=Credits(1500)
-    )
-    # player.displayInfo()
-    print(
-        ' --- '.join(player.getAttributesDict().values()),
-        ' --- '.join(player.values_dict.values()),
-        sep='\n'
-    )
-
-    print(player.values_dict[PlayerAttribute.EMAIL], player.email.value, sep=' <> ')
-    # print(player.getAttributesDict().__doc__)
