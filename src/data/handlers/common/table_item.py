@@ -37,7 +37,7 @@ class TableItem:
         return self.__is_primary_key or self.__foreign_key_constraint is not None
 
     def generateHeader(self) -> str:
-        header: str = f"{self.name} {self.data_type.name}"
+        header: str = f"{self.name} {self.data_type.value}"
 
         # Add nullable constraint
         if not self.__nullable and not self.is_primary_or_foreign_key:

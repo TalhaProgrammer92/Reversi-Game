@@ -63,6 +63,18 @@ class Coin(BaseEntity):
             CoinAttribute.UPDATED_AT: DataType.TEXT
         }
 
+    @staticmethod
+    def getNullableDict() -> dict[CoinAttribute, bool]:
+        """
+        This method returns a dictionary with the key-value pairs of attribute and its nullable property
+        """
+        return {
+            CoinAttribute.ID: False,
+            CoinAttribute.COIN_STATE: False,
+            CoinAttribute.CREATED_AT: False,
+            CoinAttribute.UPDATED_AT: False
+        }
+
     ######################
     # Update Coin States #
     ######################

@@ -90,6 +90,25 @@ class Player(BaseEntity):
             PlayerAttribute.UPDATED_AT: DataType.TEXT
         }
 
+    @staticmethod
+    def getNullableDict() -> dict[PlayerAttribute, bool]:
+        """
+        This method returns a dictionary with the key-value pairs of attribute and its nullable property
+        """
+        return {
+            PlayerAttribute.ID: False,
+            PlayerAttribute.USERNAME: True,
+            PlayerAttribute.EMAIL: False,
+            PlayerAttribute.SCORE: False,
+            PlayerAttribute.CREDITS: False,
+            PlayerAttribute.CREATED_AT: False,
+            PlayerAttribute.UPDATED_AT: False
+        }
+
+    @staticmethod
+    def getForiegnKeyConstraint():
+        pass
+
     ################
     # Update Score #
     ################
