@@ -4,6 +4,7 @@ from value_objects.player.credits import Credits
 from game_objects.base_entity import BaseEntity
 from enums.data_handler.data_type import DataType
 from enums.player.player_attribute import PlayerAttribute
+from data.handlers.common.foreign_key_constraint import ForeignKeyConstraint
 from shield.guard import Guard
 
 
@@ -37,13 +38,16 @@ class Player(BaseEntity):
     def email(self) -> Email:
         return self.__email
 
-    @property
-    def primary_key(self) -> PlayerAttribute:
-        return PlayerAttribute.ID
-
     ##########################
     # Attributes & DataTypes #
     ##########################
+
+    @staticmethod
+    def getPrimaryKey() -> PlayerAttribute:
+        """
+        This method gives primary key attribute
+        """
+        return PlayerAttribute.ID
 
     @staticmethod
     def getAttributesList() -> list[PlayerAttribute]:
@@ -106,8 +110,8 @@ class Player(BaseEntity):
         }
 
     @staticmethod
-    def getForiegnKeyConstraint():
-        pass
+    def getForiegnKeyConstraint() -> ForeignKeyConstraint | None:
+        return None
 
     ################
     # Update Score #

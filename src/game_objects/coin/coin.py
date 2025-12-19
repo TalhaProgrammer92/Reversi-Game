@@ -2,6 +2,7 @@ from game_objects.base_entity import *
 from enums.coin.coin_state import CoinState
 from enums.coin.coin_attribute import CoinAttribute
 from enums.data_handler.data_type import DataType
+from data.handlers.common.foreign_key_constraint import ForeignKeyConstraint
 
 
 class Coin(BaseEntity):
@@ -19,13 +20,16 @@ class Coin(BaseEntity):
     def state(self) -> CoinState:
         return self.__coin_state
 
-    @property
-    def primary_key(self) -> CoinAttribute:
-        return CoinAttribute.ID
-
     ##########################
     # Attributes & DataTypes #
     ##########################
+
+    @staticmethod
+    def getPrimaryKey() -> CoinAttribute:
+        """
+        This method gives primary key attribute
+        """
+        return CoinAttribute.ID
 
     @staticmethod
     def getAttributes() -> list[CoinAttribute]:
@@ -74,6 +78,10 @@ class Coin(BaseEntity):
             CoinAttribute.CREATED_AT: False,
             CoinAttribute.UPDATED_AT: False
         }
+
+    @staticmethod
+    def getForiegnKeyConstraint() -> ForeignKeyConstraint | None:
+        return None
 
     ######################
     # Update Coin States #

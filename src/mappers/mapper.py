@@ -6,7 +6,7 @@ from shield.guard import Guard
 
 class Mapper:
     @staticmethod
-    def to_table(self, name: str, attributes: list, datatypes: dict, nullable: dict, primary_key, foreign_key: ForeignKeyConstraint | None = None) -> list[TableItem]:
+    def to_table(name: str, attributes: list, datatypes: dict, nullable: dict, primary_key, foreign_key: ForeignKeyConstraint | None = None) -> list[TableItem]:
         """
         This method creates a table based on the parameters
         """
