@@ -6,19 +6,21 @@ from shield.guard import Guard
 
 class DatabaseManager:
     @staticmethod
-    def createTable(table_name: str, table_items: list[TableItem], db_conn: DatabaseConnection | None = None) -> None:
+    def createTable(table_name: str, table_items: list[TableItem] | tuple[TableItem] | str, database_connection: DatabaseConnection | None = None) -> None:
         """
         This method creates a table inside database if it doesn't exist
         """
         Guard.againstEmpty(table_name, 'table name')
         Guard.againstEmpty(table_items, 'table items')
 
-        query: str = f"CREATE TABLE IF NOT EXISTS {table_name}({', '.join([item.generateHeader() for item in table_items])})"
+        query: str = f"CREATE TABLE IF NOT EXISTS {table_name}({', '.join([item.generateHeader() for item in table_items])})" \
+            if isinstance(table_items, list) else \
+            f"CREATE TABLE IF NOT EXISTS {table_name}({table_items})"
 
-        db_conn.executeAndCommit(query)
+        database_connection.executeAndCommit(query)
 
     @staticmethod
-    def removeData(table_name: str, condition: DataCondition | None, db_conn: DatabaseConnection) -> None:
+    def removeData(table_name: str, condition: DataCondition | None, database_connection: DatabaseConnection) -> None:
         """
         This method removes data from a table on given condition
         """
@@ -29,10 +31,10 @@ class DatabaseManager:
         if condition:
             query += f" WHERE {condition.getConditionString()};"
 
-        db_conn.executeAndCommit(query)
+        database_connection.executeAndCommit(query)
 
     @staticmethod
-    def deleteTable(table_name: str, db_conn: DatabaseConnection) -> None:
+    def deleteTable(table_name: str, database_connection: DatabaseConnection) -> None:
         """
         This method deletes a particular table inside the given database
         """
@@ -40,10 +42,10 @@ class DatabaseManager:
 
         query: str = f'DROP TABLE {table_name};'
 
-        db_conn.executeAndCommit(query)
+        database_connection.executeAndCommit(query)
 
     @staticmethod
-    def insertData(table_name: str, data_values_name: tuple[str], data_values: tuple, db_conn: DatabaseConnection) -> None:
+    def insertData(table_name: str, data_values_name: tuple[str], data_values: tuple, database_connection: DatabaseConnection) -> None:
         """
         This method inserts data into a particular table of the given database
         """
@@ -53,10 +55,10 @@ class DatabaseManager:
 
         query: str = f'INSERT INTO {table_name} {data_values_name} VALUES {data_values}'
 
-        db_conn.executeAndCommit(query)
+        database_connection.executeAndCommit(query)
 
     @staticmethod
-    def retrieveData(table_name: str, attributes: list, condition: DataCondition | None, db_conn: DatabaseConnection, commit: bool = False) -> list:
+    def retrieveData(table_name: str, attributes: list[str], condition: DataCondition | None, database_connection: DatabaseConnection, commit: bool = False) -> list:
         """
         This method retrieves data from a particular table of the given database
         """
@@ -70,14 +72,14 @@ class DatabaseManager:
             query += f' WHERE {condition.getConditionString()};'
 
         # Fetch data from the database
-        data: list = db_conn.fetchAll(query)
+        data: list = database_connection.fetchAll(query)
         if commit:
-            db_conn.commit()
+            database_connection.commit()
 
         return data
 
     @staticmethod
-    def updateData(table_name: str, attributes: list[str], values: list[str], condition: DataCondition | None, db_conn: DatabaseConnection) -> None:
+    def updateData(table_name: str, attributes: list[str], values: list[str], condition: DataCondition | None, database_connection: DatabaseConnection) -> None:
         """
         This method updates particular data from a table of the given database
         """
@@ -90,4 +92,4 @@ class DatabaseManager:
         if condition:
             query += f" WHERE {condition.getConditionString()};"
 
-        db_conn.executeAndCommit(query)
+        database_connection.executeAndCommit(query)

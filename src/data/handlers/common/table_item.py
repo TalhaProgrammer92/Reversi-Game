@@ -1,5 +1,8 @@
+from game_objects.player.player import Player
+from game_objects.coin.coin import Coin
 from enums.data_handler.data_type import DataType
 from data.handlers.common.foreign_key_constraint import ForeignKeyConstraint
+from shield.guard import Guard
 
 
 class TableItem:
@@ -34,7 +37,7 @@ class TableItem:
         return self.__is_primary_key or self.__foreign_key_constraint is not None
 
     def generateHeader(self) -> str:
-        header: str = f"{self.name} {self.data_type.name}"
+        header: str = f"{self.name} {self.data_type.value}"
 
         # Add nullable constraint
         if not self.__nullable and not self.is_primary_or_foreign_key:
@@ -53,3 +56,32 @@ class TableItem:
                 header += ' ON DELETE SET NULL'
 
         return header
+
+    @staticmethod
+    def createHeaders(*args: 'TableItem') -> str:
+        """
+        This method creates headers from given list of table items
+        """
+        return ', '.join([item.generateHeader() for item in args])
+
+    @staticmethod
+    def generateTableItem(game_object: Coin | Player):
+        """
+        This method generates table items list of given game object
+        """
+        attributes: list = game_object.getAttributes()
+        datatypes: dict = game_object.getDatatypesWithAttributes()
+        table_items: list[TableItem] = []
+
+        Guard.againstDifferentLengths(attributes, list(datatypes.values()))
+
+        for i in range(len(attributes)):
+            name: str = attributes[i]
+            type: DataType = datatypes[name]
+            is_primary_key: bool = attributes[i] == game_object.getPrimaryKeyAttribute()
+
+            table_items.append(TableItem(
+                name=name, type=type, is_primary_key=is_primary_key
+            ))
+
+        return table_items

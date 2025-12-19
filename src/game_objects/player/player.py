@@ -4,6 +4,7 @@ from value_objects.player.credits import Credits
 from game_objects.base_entity import BaseEntity
 from enums.data_handler.data_type import DataType
 from enums.player.player_attribute import PlayerAttribute
+from data.handlers.common.foreign_key_constraint import ForeignKeyConstraint
 from shield.guard import Guard
 
 
@@ -37,19 +38,37 @@ class Player(BaseEntity):
     def email(self) -> Email:
         return self.__email
 
+    ##########################
+    # Attributes & DataTypes #
+    ##########################
+
     @staticmethod
-    def getAttributesDict() -> dict:
-        base: dict = BaseEntity.getAttributesDict()
-        player: dict = {
-            PlayerAttribute.USERNAME: PlayerAttribute.USERNAME.value,
-            PlayerAttribute.EMAIL: PlayerAttribute.EMAIL.value,
-            PlayerAttribute.SCORE: PlayerAttribute.SCORE.value,
-            PlayerAttribute.CREDITS: PlayerAttribute.CREDITS.value,
-        }
-        return base | player
+    def getPrimaryKey() -> PlayerAttribute:
+        """
+        This method gives primary key attribute
+        """
+        return PlayerAttribute.ID
+
+    @staticmethod
+    def getAttributesList() -> list[PlayerAttribute]:
+        """
+        This method returns a list of attributes
+        """
+        return [
+            PlayerAttribute.ID,
+            PlayerAttribute.USERNAME,
+            PlayerAttribute.EMAIL,
+            PlayerAttribute.SCORE,
+            PlayerAttribute.CREDITS,
+            PlayerAttribute.CREATED_AT,
+            PlayerAttribute.UPDATED_AT
+        ]
 
     @property
     def values_dict(self) -> dict:
+        """
+        This method returns a dictionary of values
+        """
         return {
             PlayerAttribute.ID: f'{self.id}',
             PlayerAttribute.USERNAME: f'"{self.username}"',
@@ -61,18 +80,38 @@ class Player(BaseEntity):
         }
 
     @staticmethod
-    def getDatatypesWithAttributes() -> dict:
+    def getDatatypes() -> dict[PlayerAttribute, DataType]:
         """
-        This method returns a dictionary with the key-value pairs of attribute name and its datatype
+        This method returns a dictionary with the key-value pairs of attribute and its datatype
         """
-        base: dict = BaseEntity.getDatatypesWithAttributes()
-        player: dict = {
-            PlayerAttribute.USERNAME.value: DataType.TEXT,
-            PlayerAttribute.EMAIL.value: DataType.TEXT,
-            PlayerAttribute.SCORE.value: DataType.INTEGER,
-            PlayerAttribute.CREDITS.value: DataType.INTEGER
+        return {
+            PlayerAttribute.ID: DataType.INTEGER,
+            PlayerAttribute.USERNAME: DataType.TEXT,
+            PlayerAttribute.EMAIL: DataType.TEXT,
+            PlayerAttribute.SCORE: DataType.INTEGER,
+            PlayerAttribute.CREDITS: DataType.INTEGER,
+            PlayerAttribute.CREATED_AT: DataType.TEXT,
+            PlayerAttribute.UPDATED_AT: DataType.TEXT
         }
-        return base | player
+
+    @staticmethod
+    def getNullableDict() -> dict[PlayerAttribute, bool]:
+        """
+        This method returns a dictionary with the key-value pairs of attribute and its nullable property
+        """
+        return {
+            PlayerAttribute.ID: False,
+            PlayerAttribute.USERNAME: True,
+            PlayerAttribute.EMAIL: False,
+            PlayerAttribute.SCORE: False,
+            PlayerAttribute.CREDITS: False,
+            PlayerAttribute.CREATED_AT: False,
+            PlayerAttribute.UPDATED_AT: False
+        }
+
+    @staticmethod
+    def getForiegnKeyConstraint() -> ForeignKeyConstraint | None:
+        return None
 
     ################
     # Update Score #
@@ -139,21 +178,3 @@ Score:      {self.score.value}
 Credits:    {self.credits.value}
 Created:    {self.created_at}
 Updated:    {self.updated_at}""")
-
-if __name__ == '__main__':
-    player: Player = Player(
-        id=1,
-        username='Talha Ahmad',
-        email=Email('talha@gmail.com'),
-        score=Score(24),
-        credits=Credits(1500)
-    )
-    # player.displayInfo()
-    print(
-        ' --- '.join(player.getAttributesDict().values()),
-        ' --- '.join(player.values_dict.values()),
-        sep='\n'
-    )
-
-    print(player.values_dict[PlayerAttribute.EMAIL], player.email.value, sep=' <> ')
-    # print(player.getAttributesDict().__doc__)

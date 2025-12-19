@@ -2,6 +2,7 @@ from game_objects.base_entity import *
 from enums.coin.coin_state import CoinState
 from enums.coin.coin_attribute import CoinAttribute
 from enums.data_handler.data_type import DataType
+from data.handlers.common.foreign_key_constraint import ForeignKeyConstraint
 
 
 class Coin(BaseEntity):
@@ -19,16 +20,34 @@ class Coin(BaseEntity):
     def state(self) -> CoinState:
         return self.__coin_state
 
+    ##########################
+    # Attributes & DataTypes #
+    ##########################
+
     @staticmethod
-    def getAttributesDict() -> dict:
-        base: dict = BaseEntity.getAttributesDict()
-        coin: dict = {
-            CoinAttribute.COIN_STATE: CoinAttribute.COIN_STATE.value,
-        }
-        return base | coin
+    def getPrimaryKey() -> CoinAttribute:
+        """
+        This method gives primary key attribute
+        """
+        return CoinAttribute.ID
+
+    @staticmethod
+    def getAttributes() -> list[CoinAttribute]:
+        """
+        This method returns a list of attributes
+        """
+        return [
+            CoinAttribute.ID,
+            CoinAttribute.COIN_STATE,
+            CoinAttribute.CREATED_AT,
+            CoinAttribute.UPDATED_AT
+        ]
 
     @property
     def values_dict(self) -> dict:
+        """
+        This method returns a dictionary of values
+        """
         return {
             CoinAttribute.ID: f'{self.id}',
             CoinAttribute.COIN_STATE: f'{self.state.value}',
@@ -37,15 +56,32 @@ class Coin(BaseEntity):
         }
 
     @staticmethod
-    def getDatatypesWithAttributes() -> dict:
+    def getDatatypesWithAttributes() -> dict[CoinAttribute, DataType]:
         """
         This method returns a dictionary with the key-value pairs of attribute name and its datatype
         """
-        base: dict = BaseEntity.getDatatypesWithAttributes()
-        coin: dict = {
-            CoinAttribute.COIN_STATE.value: DataType.NUMERIC
+        return {
+            CoinAttribute.ID: DataType.INTEGER,
+            CoinAttribute.COIN_STATE: DataType.NUMERIC,
+            CoinAttribute.CREATED_AT: DataType.TEXT,
+            CoinAttribute.UPDATED_AT: DataType.TEXT
         }
-        return base | coin
+
+    @staticmethod
+    def getNullableDict() -> dict[CoinAttribute, bool]:
+        """
+        This method returns a dictionary with the key-value pairs of attribute and its nullable property
+        """
+        return {
+            CoinAttribute.ID: False,
+            CoinAttribute.COIN_STATE: False,
+            CoinAttribute.CREATED_AT: False,
+            CoinAttribute.UPDATED_AT: False
+        }
+
+    @staticmethod
+    def getForiegnKeyConstraint() -> ForeignKeyConstraint | None:
+        return None
 
     ######################
     # Update Coin States #
@@ -85,11 +121,3 @@ Id:         {self.id}
 State:      {self.state.name}
 Created:    {self.created_at}
 Updated:    {self.updated_at}""")
-
-if __name__ == '__main__':
-    coin: Coin = Coin(id=2, coin_state=CoinState.BLACK)
-    print(
-        ' --- '.join(coin.getAttributesDict().values()),
-        ' --- '.join(coin.values_dict.values()),
-        sep='\n'
-    )
