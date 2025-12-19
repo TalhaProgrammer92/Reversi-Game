@@ -1,5 +1,3 @@
-from sys import orig_argv
-
 from core.shield.guard import Guard
 from core.misc.range import Range
 

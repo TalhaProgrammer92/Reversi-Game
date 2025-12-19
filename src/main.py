@@ -1,5 +1,7 @@
 from core.objects.player import Player
+from core.objects.coin import Coin
 from core.misc.func import generate_guid
+from core.misc.position import Position
 
 if __name__ == '__main__':
     player: Player = Player(
@@ -11,4 +13,11 @@ if __name__ == '__main__':
         xp=100
     )
 
-    print(player)
+    # print(player)
+
+    coin: Coin = Coin(
+        generate_guid()
+    )
+    coin.place(Position(2, 5))
+
+    print(coin)
