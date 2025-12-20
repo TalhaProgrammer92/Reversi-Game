@@ -5,6 +5,10 @@ from prototype.text.text import Text
 
 
 class Message:
+    def __init__(self, header: Text, message: str):
+        self.header: Text = header
+        self.message: str = message
+
     @staticmethod
     def info(message: str) -> None:
         header: Text = Text(
@@ -15,14 +19,7 @@ class Message:
             )
         )
 
-        text: Text = Text(
-            text=message,
-            decoration=Decoration(
-                style=Style.ITALIC
-            )
-        )
-
-        print(header, text, sep=' ')
+        print(Message(header, message))
 
     @staticmethod
     def error(message: str) -> None:
@@ -34,14 +31,7 @@ class Message:
             )
         )
 
-        text: Text = Text(
-            text=message,
-            decoration=Decoration(
-                style=Style.ITALIC
-            )
-        )
-
-        print(header, text, sep=' ')
+        print(Message(header, message))
 
     @staticmethod
     def warning(message: str) -> None:
@@ -53,14 +43,7 @@ class Message:
             )
         )
 
-        text: Text = Text(
-            text=message,
-            decoration=Decoration(
-                style=Style.ITALIC
-            )
-        )
-
-        print(header, text, sep=' ')
+        print(Message(header, message))
 
     @staticmethod
     def success(message: str) -> None:
@@ -72,11 +55,7 @@ class Message:
             )
         )
 
-        text: Text = Text(
-            text=message,
-            decoration=Decoration(
-                style=Style.ITALIC
-            )
-        )
+        print(header, message)
 
-        print(header, text, sep=' ')
+    def __repr__(self) -> str:
+        return self.header.__repr__() + ' ' + self.message

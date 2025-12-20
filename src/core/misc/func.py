@@ -1,7 +1,6 @@
-from uuid import uuid4
 from core.misc.position import Position
 from core.shield.guard import Guard
-from core.misc.range import Range
+from uuid import uuid4
 
 # Generates a random GUID
 generate_guid = lambda : uuid4()
@@ -22,3 +21,13 @@ def from_label_position(position: str) -> Position:
     column: int = ord(position[1].upper()) - ord('A') + 1
 
     return Position(row, column)
+
+def print_n(value: str, limit: int, line_break: bool = True) -> None:
+    """ This function prints a given string in N times """
+    Guard.againstZeroOrLess(limit, 'limit')
+
+    for count in range(limit):
+        print(value, end='')
+
+    if line_break:
+        print()
