@@ -42,5 +42,5 @@ class Coin(BaseObject):
     def __repr__(self) -> str:
         """ This method provides object as string for output """
         return f"""{'*' * 10} {self.id} {'*' * 10}
-State:      '{self.state.name}'
+State:      {self.state.name}
 Position:   {self.position}"""

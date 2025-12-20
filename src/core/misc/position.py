@@ -5,10 +5,10 @@ from core.misc.range import Range
 class Position:
     # Constructor
     def __init__(self, row: int, column: int):
-        Guard.againstOutOfRange(self.range, row, 'row')
+        Guard.againstOutOfRange(Position.range(), row, 'row')
         self.__row: int = row
 
-        Guard.againstOutOfRange(self.range, column, 'column')
+        Guard.againstOutOfRange(Position.range(), column, 'column')
         self.__column: int = column
 
     ###########
@@ -23,10 +23,9 @@ class Position:
     def column(self) -> int:
         return self.__column
 
-    @property
-    def range(self) -> Range:
-        range: Range = Range(1, 8)
-        return range
+    @staticmethod
+    def range() -> Range:
+        return Range(1, 8)
 
     def __repr__(self) -> str:
         """ This method provides object as string for output """

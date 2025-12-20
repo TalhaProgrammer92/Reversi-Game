@@ -1,6 +1,6 @@
 from core.objects.player import Player
 from core.objects.coin import Coin
-from core.misc.func import generate_guid
+from core.misc.func import *
 from core.misc.position import Position
 
 if __name__ == '__main__':
@@ -20,4 +20,8 @@ if __name__ == '__main__':
     )
     coin.place(Position(2, 5))
 
-    print(coin)
+    # print(coin)
+
+    lp: str = to_label_position(Position(1, 4))
+    pos: Position = from_label_position(lp)
+    print(lp, pos)

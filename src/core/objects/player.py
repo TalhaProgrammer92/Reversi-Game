@@ -71,9 +71,8 @@ class Player(BaseObject):
         Guard.againstNegative(value, 'credits')
         self.__credits = value
 
-    @xp.setter
-    def xp(self, value: int):
-        Guard.againstNegative(value, 'xp')
+    def incrementXp(self, value: int):
+        Guard.againstNegative(value, 'value')
         self.__xp = value
 
     def __repr__(self) -> str:
