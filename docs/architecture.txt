@@ -1,0 +1,22 @@
+src/
+|- core/
+|  |- enums/
+|  |- misc/
+|  |- objects/
+|  |- shield/
+|- data/
+|  |- csv_handler/
+|  |- saves/
+|     |- general/
+|     |- slots/
+|- resources/
+|  |- music/
+|  |- sprites/
+|- prototype/
+|  |- ansi/
+|  |- launcher/
+|- graphical/
+|  |- themes/
+|  |- launchers/
+|  |- user-settings.json
+|- main.py
