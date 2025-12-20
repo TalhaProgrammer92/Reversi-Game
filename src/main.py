@@ -1,12 +1,7 @@
-from prototype.ansi.enums.foreground import Foreground
-from prototype.ansi.enums.background import Background
-from prototype.ansi.enums.style import Style
-from prototype.ansi.color import *
+from prototype.text.message import Message
 
 if __name__ == '__main__':
-    print(colored_text(
-        text='Talha Ahmad',
-        foreground=Foreground.BRIGHT_RED,
-        background=Background.BLACK,
-        style=Style.ITALIC
-    ))
+    Message.info('Reversi Game')
+    Message.success('Game Saved')
+    Message.warning('Game is not saved')
+    Message.error('Invalid position')
