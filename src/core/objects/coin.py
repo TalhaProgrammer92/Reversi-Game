@@ -1,3 +1,4 @@
+from core.enums.attributes.coin import CoinAttribute
 from core.objects.base_object import BaseObject
 from core.enums.coin_state import CoinState
 from core.misc.position import Position
@@ -35,9 +36,20 @@ class Coin(BaseObject):
 
         self.__position = position
 
-    def switch(self) -> None:
+    def flip(self) -> None:
         """ This method switches the state of the coin """
         self.__state = CoinState.WHITE if self.__state == CoinState.BLACK else CoinState.BLACK
+
+    @staticmethod
+    def getAttributesList() -> list[CoinAttribute]:
+        """ This method returns attributes list of the coin """
+        return [
+            CoinAttribute.ID,
+            CoinAttribute.STATE,
+            CoinAttribute.POSITION_ROW,
+            CoinAttribute.POSITION_COLUMN,
+            CoinAttribute.IS_PLACED
+        ]
 
     def __repr__(self) -> str:
         """ This method provides object as string for output """

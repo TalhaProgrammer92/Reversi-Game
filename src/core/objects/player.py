@@ -1,3 +1,4 @@
+from core.enums.attributes.player import PlayerAttribute
 from core.objects.base_object import BaseObject
 from core.shield.guard import Guard
 from uuid import UUID
@@ -71,9 +72,22 @@ class Player(BaseObject):
         Guard.againstNegative(value, 'credits')
         self.__credits = value
 
-    def incrementXp(self, value: int):
-        Guard.againstNegative(value, 'value')
+    def incrementXp(self, value: int = 1):
+        """ This method increases XP by a value """
+        Guard.againstZeroOrLess(value, 'value')
         self.__xp = value
+
+    @staticmethod
+    def getAttributesList() -> list[PlayerAttribute]:
+        """ This method returns attributes list of the player """
+        return [
+            PlayerAttribute.ID,
+            PlayerAttribute.NAME,
+            PlayerAttribute.EMAIL,
+            PlayerAttribute.SCORE,
+            PlayerAttribute.CREDITS,
+            PlayerAttribute.XP
+        ]
 
     def __repr__(self) -> str:
         """ This method provides object as string for output """

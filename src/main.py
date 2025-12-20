@@ -24,4 +24,10 @@ if __name__ == '__main__':
 
     lp: str = to_label_position(Position(1, 4))
     pos: Position = from_label_position(lp)
-    print(lp, pos)
+    # print(lp, pos)
+
+    for attribute in Player.getAttributesList():
+        print('player:', attribute.value, sep='\t')
+    print()
+    for attribute in Coin.getAttributesList():
+        print('coin:', attribute.value, sep='\t')
