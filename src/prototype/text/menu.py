@@ -36,6 +36,7 @@ class Menu:
         """ This method is used to add an option to the menu """
         # Add an option to the list
         Guard.againstEmptyOrWhitespace(option, 'option')
+
         self._options.append(Text(text=option, decoration=self._options_decoration))
 
         # Update max length
@@ -115,3 +116,7 @@ class Menu:
         # Print title
         self._print_title()
         self._print_options()
+
+    def take_input(self):
+        """ This method read's user input for option selection in the menu """
+        pass

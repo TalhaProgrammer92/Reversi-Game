@@ -47,10 +47,10 @@ class Guard:
             raise ValueError(f"{name.capitalize()} can't be whitespace.")
 
     @staticmethod
-    def againstSize(size: int, value: str, name: str = 'value') -> None:
-        """ This method raises exception if given value is more in size """
+    def againstSize(size: int, value: str | list | tuple, name: str = 'value') -> None:
+        """ This method raises exception if given value has exceeded size """
         if len(value) > size:
-            raise ValueError(f"{name.capitalize()} can't have size greater than {size}.")
+            raise ValueError(f"{name.capitalize()} has exceed limit {size}.")
 
     @staticmethod
     def againstNoneOrEmpty(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:

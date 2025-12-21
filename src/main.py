@@ -1,5 +1,4 @@
 from prototype.ansi.enums.foreground import Foreground
-from prototype.ansi.enums.background import Background
 from prototype.ansi.enums.style import Style
 from prototype.ansi.color import Decoration
 from prototype.text.menu import Menu
@@ -25,4 +24,5 @@ if __name__ == '__main__':
     menu.addOption('Credits')
     menu.addOption('Exit')
 
-    menu.display()
+    # menu.display()
+    print(menu.take_input())
