@@ -9,19 +9,19 @@ class Player(BaseObject):
     def __init__(self, id: UUID, name: str, email: str, score: int, credits: int, xp: int):
         super().__init__(id)
 
-        Guard.againstEmptyOrWhitespace(name, 'name')
+        Guard.against_empty_or_whitespace(name, 'name')
         self.__name: str = name
 
-        Guard.againstWrongEmail(email)
+        Guard.against_wrong_email(email)
         self.__email: str = email
 
-        Guard.againstNegative(score, 'score')
+        Guard.against_negative(score, 'score')
         self.__score: int = score
 
-        Guard.againstNegative(credits, 'credits')
+        Guard.against_negative(credits, 'credits')
         self.__credits: int = credits
 
-        Guard.againstNegative(xp, 'xp')
+        Guard.against_negative(xp, 'xp')
         self.__xp: int = xp
 
     ###########
@@ -54,31 +54,31 @@ class Player(BaseObject):
 
     @name.setter
     def name(self, value: str):
-        Guard.againstEmptyOrWhitespace(value, 'name')
+        Guard.against_empty_or_whitespace(value, 'name')
         self.__name = value
 
     @email.setter
     def email(self, value: str):
-        Guard.againstWrongEmail(value)
+        Guard.against_wrong_email(value)
         self.__email = value
 
     @score.setter
     def score(self, value: int):
-        Guard.againstNegative(value, 'score')
+        Guard.against_negative(value, 'score')
         self.__score = value
 
     @credits.setter
     def credits(self, value: int):
-        Guard.againstNegative(value, 'credits')
+        Guard.against_negative(value, 'credits')
         self.__credits = value
 
     def incrementXp(self, value: int = 1):
         """ This method increases XP by a value """
-        Guard.againstZeroOrLess(value, 'value')
+        Guard.against_zero_or_less(value, 'value')
         self.__xp = value
 
     @staticmethod
-    def getAttributesList() -> list[PlayerAttribute]:
+    def get_attributes_list() -> list[PlayerAttribute]:
         """ This method returns attributes list of the player """
         return [
             PlayerAttribute.ID,

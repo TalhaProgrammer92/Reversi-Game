@@ -5,37 +5,37 @@ import re
 
 class Guard:
     @staticmethod
-    def againstZeroOrLess(value: int | float, name: str = 'value') -> None:
+    def against_zero_or_less(value: int | float, name: str = 'value') -> None:
         """ This method raises exception if given value is zero or negative """
         if value <= 0:
             raise ValueError(f"{name.capitalize()} can't be zero or less.")
 
     @staticmethod
-    def againstNegative(value: int | float, name: str = 'value') -> None:
+    def against_negative(value: int | float, name: str = 'value') -> None:
         """ This method raises exception if given value is negative """
         if value < 0:
             raise ValueError(f"{name.capitalize()} can't be negative.")
 
     @staticmethod
-    def againstOutOfRange(range: Range, value: int | float, name: str = 'value') -> None:
+    def against_out_of_range(range: Range, value: int | float, name: str = 'value') -> None:
         """ This method raises exception if given value is out of range """
         if value < range.start or value > range.end:
             raise ValueError(f"{name.capitalize()} can't be out of range {range}.")
 
     @staticmethod
-    def againstNone(value, name: str = 'value') -> None:
+    def against_none(value, name: str = 'value') -> None:
         """ This method raises exception if given value is none """
         if value is None:
             raise ValueError(f"{name.capitalize()} can't be None.")
 
     @staticmethod
-    def againstEmpty(value: str | list | tuple | dict | set, name: str = 'value') -> None:
+    def against_empty(value: str | list | tuple | dict | set, name: str = 'value') -> None:
         """ This method raises exception if given value is empty """
         if len(value) == 0:
             raise ValueError(f"{name.capitalize()} can't be empty.")
 
     @staticmethod
-    def againstWhitespace(value: str, name: str = 'value') -> None:
+    def against_whitespace(value: str, name: str = 'value') -> None:
         """ This method raises exception if given value is whitespace """
         eligible: bool = False
         for char in value:
@@ -47,38 +47,38 @@ class Guard:
             raise ValueError(f"{name.capitalize()} can't be whitespace.")
 
     @staticmethod
-    def againstSize(size: int, value: str, name: str = 'value') -> None:
-        """ This method raises exception if given value is more in size """
+    def against_size(size: int, value: str | list | tuple, name: str = 'value') -> None:
+        """ This method raises exception if given value has exceeded size """
         if len(value) > size:
-            raise ValueError(f"{name.capitalize()} can't have size greater than {size}.")
+            raise ValueError(f"{name.capitalize()} has exceed limit {size}.")
 
     @staticmethod
-    def againstNoneOrEmpty(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:
+    def against_none_or_empty(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:
         """ This method raises exception if given value is None or empty """
-        Guard.againstNone(value, name)
-        Guard.againstEmpty(value, name)
+        Guard.against_none(value, name)
+        Guard.against_empty(value, name)
 
     @staticmethod
-    def againstNoneOrWhitespace(value: str | None, name: str = 'value') -> None:
+    def against_none_or_whitespace(value: str | None, name: str = 'value') -> None:
         """ This method raises exception if given value is None or whitespace """
-        Guard.againstNone(value, name)
-        Guard.againstWhitespace(value, name)
+        Guard.against_none(value, name)
+        Guard.against_whitespace(value, name)
 
     @staticmethod
-    def againstEmptyOrWhitespace(value: str | list | tuple | dict | set, name = 'value'):
+    def against_empty_or_whitespace(value: str | list | tuple | dict | set, name ='value'):
         """ This method raises exception if given value is empty or whitespace """
-        Guard.againstEmpty(value, name)
+        Guard.against_empty(value, name)
         if isinstance(value, str):
-            Guard.againstWhitespace(value, name)
+            Guard.against_whitespace(value, name)
 
     @staticmethod
-    def againstNoneOrEmptyOrWhitespace(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:
+    def against_none_or_empty_or_whitespace(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:
         """ This method raises exception if given value is None, empty or whitespace """
-        Guard.againstNone(value, name)
-        Guard.againstEmptyOrWhitespace(value, name)
+        Guard.against_none(value, name)
+        Guard.against_empty_or_whitespace(value, name)
 
     @staticmethod
-    def againstWrongEmail(email: str) -> None:
+    def against_wrong_email(email: str) -> None:
         """ This method raises exception if given email is wrong """
         pattern = r'^[^@\s]+@[^@\s]+\.[^@\s]+$'
         valid: bool = bool(re.match(pattern, email))
