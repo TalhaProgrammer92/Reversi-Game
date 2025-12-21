@@ -1,5 +1,6 @@
 from core.misc.position import Position
 from core.shield.guard import Guard
+from os import system, name
 from uuid import uuid4
 
 # Generates a random GUID
@@ -15,7 +16,7 @@ def to_label_position(position: Position) -> str:
 
 def from_label_position(position: str) -> Position:
     """ This function converts a labeled position to a normal position """
-    Guard.againstSize(2, position, 'position')
+    Guard.against_size(2, position, 'position')
 
     row: int = int(position[0])
     column: int = ord(position[1].upper()) - ord('A') + 1
@@ -24,10 +25,15 @@ def from_label_position(position: str) -> Position:
 
 def print_n(value: str, limit: int, line_break: bool = True) -> None:
     """ This function prints a given string in N times """
-    Guard.againstZeroOrLess(limit, 'limit')
+    Guard.against_zero_or_less(limit, 'limit')
 
     for count in range(limit):
         print(value, end='')
 
     if line_break:
         print()
+
+def clear_screen() -> None:
+    """ This function clears console/terminal screen """
+    command: str = 'cls' if name == 'nt' else 'clear'
+    system(command)

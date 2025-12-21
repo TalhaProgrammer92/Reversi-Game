@@ -41,7 +41,7 @@ class Coin(BaseObject):
         self.__state = CoinState.WHITE if self.__state == CoinState.BLACK else CoinState.BLACK
 
     @staticmethod
-    def getAttributesList() -> list[CoinAttribute]:
+    def get_attributes_list() -> list[CoinAttribute]:
         """ This method returns attributes list of the coin """
         return [
             CoinAttribute.ID,

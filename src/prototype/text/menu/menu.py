@@ -1,5 +1,7 @@
+from prototype.ansi.enums.foreground import Foreground
 from prototype.ansi.enums.style import Style
 from prototype.ansi.color import Decoration
+from prototype.text.message import Message
 from prototype.text.text import Text
 from core.shield.guard import Guard
 from core.misc.func import print_n
@@ -9,8 +11,8 @@ class Menu:
     def __init__(self, title: Text, title_decorator: str, options_decoration: Decoration):
         self._title: Text = title
 
-        Guard.againstSize(1, title_decorator, 'decorator')
-        Guard.againstWhitespace(title_decorator, 'decorator')
+        Guard.against_size(1, title_decorator, 'decorator')
+        Guard.against_whitespace(title_decorator, 'decorator')
         self._title_decorator: str = title_decorator
         self._max_length: int = len(self.title.value)
 
@@ -32,10 +34,10 @@ class Menu:
             decoration=self.title.decoration
         )
 
-    def addOption(self, option: str) -> None:
+    def add_option(self, option: str) -> None:
         """ This method is used to add an option to the menu """
         # Add an option to the list
-        Guard.againstEmptyOrWhitespace(option, 'option')
+        Guard.against_empty_or_whitespace(option, 'option')
 
         self._options.append(Text(text=option, decoration=self._options_decoration))
 
@@ -117,6 +119,37 @@ class Menu:
         self._print_title()
         self._print_options()
 
-    def take_input(self):
+    def take_input(self) -> int:
         """ This method read's user input for option selection in the menu """
-        pass
+        prompt: Text = Text(
+            text='Select an option: ',
+            decoration=Decoration(
+                foreground=Foreground.BRIGHT_GREEN
+            )
+        )
+        valid: bool = False
+        option: int = 0
+
+        while not valid:
+            # Take input
+            try:
+                option = int(input(prompt))
+            except Exception as e:
+                Message.error(f"{e}")
+                continue
+
+            # Check option validity
+            if 0 < option <= len(self._options):
+                valid = True
+
+            # Print message if option is not valid
+            if not valid:
+                Message.error(f'Invalid option selection. You must select between 1 and {len(self._options)}')
+
+        return option
+
+    def display_and_take_input(self) -> int:
+        """ This method display's menu and takes input """
+        self.display()
+        print()
+        return self.take_input()

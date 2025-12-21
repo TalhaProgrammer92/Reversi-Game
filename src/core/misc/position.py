@@ -5,10 +5,10 @@ from core.misc.range import Range
 class Position:
     # Constructor
     def __init__(self, row: int, column: int):
-        Guard.againstOutOfRange(Position.range(), row, 'row')
+        Guard.against_out_of_range(Position.range(), row, 'row')
         self.__row: int = row
 
-        Guard.againstOutOfRange(Position.range(), column, 'column')
+        Guard.against_out_of_range(Position.range(), column, 'column')
         self.__column: int = column
 
     ###########

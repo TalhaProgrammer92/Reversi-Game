@@ -1,28 +1,19 @@
-from prototype.ansi.enums.foreground import Foreground
-from prototype.ansi.enums.style import Style
-from prototype.ansi.color import Decoration
-from prototype.text.menu import Menu
-from prototype.text.text import Text
+from prototype.text.menu.main_menu import *
+from prototype.text.message import Message
+from core.misc.func import clear_screen
 
 if __name__ == '__main__':
-    menu: Menu = Menu(
-        title=Text(
-            text='Main Menu',
-            decoration=Decoration(
-                foreground=Foreground.BRIGHT_MAGENTA,
-                style=Style.BOLD
-            )
-        ),
-        title_decorator='*',
-        options_decoration=Decoration(
-            foreground=Foreground.BRIGHT_CYAN
-        )
-    )
-    menu.addOption('New Game')
-    menu.addOption('Load Game')
-    menu.addOption('Settings')
-    menu.addOption('Credits')
-    menu.addOption('Exit')
+    menu: MainMenu = MainMenu()
+    option: int = 0
 
-    # menu.display()
-    print(menu.take_input())
+    while True:
+        clear_screen()
+        menu.display()
+        print()
+        Message.info(f"You've selected '{menu.get_option(option).name if option > 0 else 'None'}'")
+        option = menu.take_input()
+
+        if option == MainMenuOption.EXIT.value:
+            clear_screen()
+            print('Quiting...')
+            break

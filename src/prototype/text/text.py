@@ -4,7 +4,7 @@ from core.shield.guard import Guard
 
 class Text:
     def __init__(self, text: str, decoration: Decoration = Decoration()):
-        Guard.againstEmptyOrWhitespace(text, 'text')
+        Guard.against_empty_or_whitespace(text, 'text')
         self.__text: str = text
         self.__decoration: Decoration = decoration
 
