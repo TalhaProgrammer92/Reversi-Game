@@ -1,10 +1,8 @@
-from click import option
-from typing_extensions import override
-
 from prototype.settings import menu_settings
 from prototype.text.menu.menu import Menu
 from core.shield.guard import Guard
 from core.misc.range import Range
+from typing import override
 from enum import Enum
 
 
@@ -31,8 +29,8 @@ class MainMenu(Menu):
         self.add_option('Credits')
         self.add_option('Exit')
 
-    @property
-    def options(self) -> list[MainMenuOption]:
+    @staticmethod
+    def options() -> list[MainMenuOption]:
         return [
             MainMenuOption.START_GAME,
             MainMenuOption.LOAD_GAME,
@@ -44,7 +42,7 @@ class MainMenu(Menu):
     def get_option(self, value: int) -> MainMenuOption:
         """ This method gets option on the basis of the value """
         Guard.against_out_of_range(Range(1, len(self._options)), value, 'options index')
-        return self.options[value - 1]
+        return self.options()[value - 1]
 
     @override
     def display_and_take_input(self) -> MainMenuOption:
