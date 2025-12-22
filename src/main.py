@@ -4,16 +4,14 @@ from core.misc.func import clear_screen
 
 if __name__ == '__main__':
     menu: MainMenu = MainMenu()
-    option: int = 0
+    option: MainMenuOption | None = None
 
     while True:
         clear_screen()
-        menu.display()
-        print()
-        Message.info(f"You've selected '{menu.get_option(option).name if option > 0 else 'None'}'")
-        option = menu.take_input()
+        Message.info(f"You've selected: '{option.name if option is not None else "None"}'\n")
+        option = menu.display_and_take_input()
 
-        if option == MainMenuOption.EXIT.value:
+        if option == MainMenuOption.EXIT:
             clear_screen()
             print('Quiting...')
             break
