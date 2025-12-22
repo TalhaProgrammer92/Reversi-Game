@@ -1,3 +1,6 @@
+from click import option
+from typing_extensions import override
+
 from prototype.settings import menu_settings
 from prototype.text.menu.menu import Menu
 from core.shield.guard import Guard
@@ -42,3 +45,17 @@ class MainMenu(Menu):
         """ This method gets option on the basis of the value """
         Guard.against_out_of_range(Range(1, len(self._options)), value, 'options index')
         return self.options[value - 1]
+
+    @override
+    def display_and_take_input(self) -> MainMenuOption:
+        """ This method display's menu and takes input """
+        self.display()
+        print()
+        choice: int = super().take_input()
+        return self.get_option(choice)
+
+    @override
+    def take_input(self) -> MainMenuOption:
+        """ This method read's user input for option selection in the menu """
+        choice: int = super().take_input()
+        return self.get_option(choice)
