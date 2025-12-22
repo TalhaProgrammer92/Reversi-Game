@@ -72,7 +72,7 @@ class Player(BaseObject):
         Guard.against_negative(value, 'credits')
         self.__credits = value
 
-    def incrementXp(self, value: int = 1):
+    def increment_xp(self, value: int = 1):
         """ This method increases XP by a value """
         Guard.against_zero_or_less(value, 'value')
         self.__xp = value

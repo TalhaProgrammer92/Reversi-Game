@@ -12,14 +12,21 @@ def to_label_position(position: Position) -> str:
     labels: str = "ABCDEFGH"
     column: str = labels[position.column - 1]
 
-    return row + column
+    return column + row
 
 def from_label_position(position: str) -> Position:
     """ This function converts a labeled position to a normal position """
+    # Validation Checks
     Guard.against_size(2, position, 'position')
 
-    row: int = int(position[0])
-    column: int = ord(position[1].upper()) - ord('A') + 1
+    if not position[1].isdigit():
+        raise Exception("The position must contain a digit.")
+    if not position[0] in 'ABCDEFGH':
+        raise Exception("The position must contain a label.")
+
+    # Conversion
+    row: int = int(position[1])
+    column: int = ord(position[0]) - ord('A') + 1
 
     return Position(row, column)
 
