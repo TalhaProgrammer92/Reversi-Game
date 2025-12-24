@@ -21,3 +21,39 @@ menu_settings: dict = {
         )
     }
 }
+
+message_settings: dict = {
+    'text': {
+        'info': '[INFO]',
+        'success': '[SUCCESS]',
+        'warning': '[WARNING]',
+        'error': '[ERROR]'
+    },
+    'decoration': {
+        'info': Decoration(
+            foreground=Foreground.BRIGHT_CYAN,
+            style=Style.BOLD
+        ),
+        'success': Decoration(
+            foreground=Foreground.BRIGHT_GREEN,
+            style=Style.BOLD
+        ),
+        'warning': Decoration(
+            foreground=Foreground.BRIGHT_YELLOW,
+            style=Style.BOLD
+        ),
+        'error': Decoration(
+            foreground=Foreground.BRIGHT_RED,
+            style=Style.BOLD
+        )
+    }
+}
+
+text_settings: dict = {
+    'decoration': {
+        'prompt': Decoration(
+            foreground=Foreground.YELLOW,
+            style=Style.RAPID_BLINK
+        )
+    }
+}

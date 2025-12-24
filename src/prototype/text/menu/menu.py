@@ -1,10 +1,10 @@
-from prototype.ansi.enums.foreground import Foreground
+from prototype.misc import take_integer_input
 from prototype.ansi.enums.style import Style
 from prototype.ansi.color import Decoration
-from prototype.text.message import Message
 from prototype.text.text import Text
 from core.shield.guard import Guard
 from core.misc.func import print_n
+from core.misc.range import Range
 
 
 class Menu:
@@ -121,32 +121,11 @@ class Menu:
 
     def take_input(self) -> int:
         """ This method read's user input for option selection in the menu """
-        prompt: Text = Text(
-            text='Select an option: ',
-            decoration=Decoration(
-                foreground=Foreground.BRIGHT_GREEN
-            )
+        return take_integer_input(
+            prompt='Select an option: ',
+            range=Range(start=1, end=len(self._options)),
+            custom_error_message=f"You've to select between 1 and {len(self._options)}."
         )
-        valid: bool = False
-        option: int = 0
-
-        while not valid:
-            # Take input
-            try:
-                option = int(input(prompt))
-            except Exception as e:
-                Message.error(f"{e}")
-                continue
-
-            # Check option validity
-            if 0 < option <= len(self._options):
-                valid = True
-
-            # Print message if option is not valid
-            if not valid:
-                Message.error(f'Invalid option selection. You must select between 1 and {len(self._options)}')
-
-        return option
 
     def display_and_take_input(self) -> int:
         """ This method display's menu and takes input """
