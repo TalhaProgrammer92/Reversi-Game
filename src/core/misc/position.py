@@ -1,3 +1,4 @@
+from core.misc.position_offset import PositionOffset
 from core.shield.guard import Guard
 from core.misc.range import Range
 
@@ -31,14 +32,14 @@ class Position:
     # Calculations #
     ################
 
-    def __add__(self, other: 'Position') -> 'Position':
+    def __add__(self, other: 'Position' | PositionOffset) -> 'Position':
         position: Position = Position(row=self.row + other.row, column=self.column + other.column)
         Guard.against_out_of_range(Position.range(), self.row, 'row')
         Guard.against_out_of_range(Position.range(), self.column, 'column')
 
         return position
 
-    def __sub__(self, other: 'Position') -> 'Position':
+    def __sub__(self, other: 'Position' | PositionOffset) -> 'Position':
         position: Position = Position(row=self.row - other.row, column=self.column - other.column)
         Guard.against_out_of_range(Position.range(), self.row, 'row')
         Guard.against_out_of_range(Position.range(), self.column, 'column')
