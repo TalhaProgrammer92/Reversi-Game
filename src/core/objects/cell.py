@@ -1,6 +1,7 @@
-from core.objects.coin import Coin
-from core.enums.coin_state import CoinState
+from core.enums.cell_state import CellState
+from core.misc.position import Position
 from core.shield.guard import Guard
+from core.objects.coin import Coin
 
 
 class Cell:
@@ -23,19 +24,9 @@ class Cell:
         return self.__coin
 
     @property
-    def is_empty(self) -> bool:
-        """Check if the cell has no coin"""
-        return self.__coin is None
-
-    @property
-    def is_occupied(self) -> bool:
-        """Check if the cell has a coin"""
-        return self.__coin is not None
-
-    @property
-    def state(self) -> CoinState | None:
-        """Returns the coin state (BLACK/WHITE) or None if empty"""
-        return self.__coin.state if self.__coin else None
+    def state(self) -> CellState:
+        """Returns the cell state (Empty / Occupied) """
+        return CellState.OCCUPIED if self.__coin else CellState.EMPTY
 
     ###########
     # Methods #
@@ -45,15 +36,17 @@ class Cell:
         """Place a coin in this cell"""
         Guard.against_none(coin, 'coin')
 
-        if self.is_occupied:
+        if self.state == CellState.OCCUPIED:
             raise Exception("Cell is already occupied.")
 
         self.__coin = coin
 
     def flip(self) -> None:
-        """Flip the coin in this cell (changes BLACK to WHITE or vice versa)"""
-        if self.__coin:
-            self.__coin.flip()
+        """Flip the coin in this cell"""
+        if self.state == CellState.EMPTY:
+            raise Exception("Cell is empty")
+
+        self.__coin.flip()
 
     def clear(self) -> Coin | None:
         """Remove and return the coin from this cell"""
@@ -63,6 +56,4 @@ class Cell:
 
     def __repr__(self) -> str:
         """String representation of the cell"""
-        if self.is_empty:
-            return "."  # Empty cell
-        return "B" if self.state == CoinState.BLACK else "W"
+        return '.' if self.state == CellState.EMPTY else self.coin.state.name[0]

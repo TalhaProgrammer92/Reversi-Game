@@ -28,6 +28,10 @@ class Coin(BaseObject):
     def placed(self) -> bool:
         return self.position is not None
 
+    ###########
+    # Methods #
+    ###########
+
     def place(self, position: Position) -> None:
         """ This method places the coin on board """
         # Check if coin is already placed
@@ -49,6 +53,16 @@ class Coin(BaseObject):
             CoinAttribute.POSITION_ROW,
             CoinAttribute.POSITION_COLUMN,
             CoinAttribute.IS_PLACED
+        ]
+
+    @staticmethod
+    def placing_at_corner(position: Position) -> bool:
+        """Checks if the coin is being placed at corner of the board"""
+        return position in [
+            Position(1, 1),     # TOP-LEFT
+            Position(1, 8),     # TOP-RIGHT
+            Position(8, 1),     # BOTTOM-LEFT
+            Position(8, 8)      # BOTTOM-RIGHT
         ]
 
     def __repr__(self) -> str:

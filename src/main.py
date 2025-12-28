@@ -1,17 +1,11 @@
-from prototype.text.menu.main_menu import *
-from prototype.text.message import Message
-from core.misc.func import clear_screen
+from core.enums.coin_state import CoinState
+from core.misc.func import generate_guid
+from core.misc.position import Position
+from core.objects.board import Board
+from core.objects.coin import Coin
 
 if __name__ == '__main__':
-    menu: MainMenu = MainMenu()
-    option: MainMenuOption | None = None
-
-    while True:
-        clear_screen()
-        Message.info(f"You've selected: '{option.name if option is not None else "None"}'\n")
-        option = menu.display_and_take_input()
-
-        if option == MainMenuOption.EXIT:
-            clear_screen()
-            print('Quiting...')
-            break
+    board: Board = Board()
+    board.initialize()
+    board.place_coin(Position(2, 2), Coin(generate_guid, CoinState.WHITE))
+    print(board)
