@@ -3,8 +3,10 @@ from core.enums.coin_state import CoinState
 from core.enums.direction import Direction
 from core.misc.func import generate_guid
 from core.misc.position import Position
+from core.shield.guard import Guard
 from core.objects.cell import Cell
 from core.objects.coin import Coin
+from core.misc.exceptions import *
 from core.misc.size import Size
 
 
@@ -27,9 +29,18 @@ class Board:
         return Size(8, 8)
 
     @property
+    def area(self) -> int:
+        return self.size.row * self.size.column
+
+    @property
     def grid(self) -> list[list[Cell]]:
         """Returns the grid of cells"""
         return self.__grid
+
+    @property
+    def is_full(self) -> bool:
+        coins: dict = self.get_number_of_coins()
+        return coins[CoinState.WHITE] + coins[CoinState.BLACK] == self.area
 
     #################
     # Board Methods #
@@ -71,8 +82,13 @@ class Board:
 
     def guard_within_bounds(self, position: Position) -> None:
         """Check if coordinates are within board boundaries"""
-        if not (position.row <= self.size.row and position.column <= self.size.column):
-            raise ValueError(f"The given position is out of bound '{self.size}'")
+        Guard.against_out_of_range(position.row, Position.range(), 'row')
+        Guard.against_out_of_range(position.column, Position.range(), 'column')
+
+    def guard_board_initialization(self) -> None:
+        """Check if board is not initialized"""
+        if len(self.__grid) == 0:
+            raise OperationException("The board is not initialized")
 
     ###################
     # Coin Operations #
@@ -80,6 +96,7 @@ class Board:
 
     def place_coin(self, position: Position, coin: Coin) -> None:
         """Place a coin at specified position"""
+        self.guard_board_initialization()
         self.guard_within_bounds(position)
 
         # Check move validity and flip all coins at possible position based on all directions
@@ -94,7 +111,7 @@ class Board:
 
         # If the move is not valid
         if not is_valid_move:
-            raise Exception(f"Invalid move for the given coin at position {position}")
+            raise OperationException(f"Invalid move for the given coin at position {position}")
 
         # Place the coin
         self.get_cell(position).place(coin)
@@ -102,11 +119,14 @@ class Board:
 
     def flip_coin(self, position: Position) -> None:
         """Flip a coin at specified position"""
+        self.guard_board_initialization()
         self.guard_within_bounds(position)
+
         self.get_cell(position).flip()
 
     def remove_coin(self, position: Position) -> Coin | None:
         """Remove and return coin from specified position"""
+        self.guard_board_initialization()
         self.guard_within_bounds(position)
 
         cell = self.get_cell(position)
@@ -136,7 +156,7 @@ class Board:
             try:
                 flip_positions.append(pos)
                 pos += direction.value
-            except ValueError:
+            except OutOfRangeException:
                 return False    # Because the position has gone out of cell range
 
         # Flip the coins

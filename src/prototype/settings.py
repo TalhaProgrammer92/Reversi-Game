@@ -1,5 +1,4 @@
 from prototype.ansi.enums.foreground import Foreground
-from prototype.ansi.enums.background import Background
 from prototype.ansi.enums.style import Style
 from prototype.ansi.color import Decoration
 from prototype.text.text import Text

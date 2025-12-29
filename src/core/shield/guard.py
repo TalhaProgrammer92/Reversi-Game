@@ -1,5 +1,6 @@
-from string import whitespace
+from core.misc.exceptions import *
 from core.misc.range import Range
+from string import whitespace
 import re
 
 
@@ -8,31 +9,31 @@ class Guard:
     def against_zero_or_less(value: int | float, name: str = 'value') -> None:
         """ This method raises exception if given value is zero or negative """
         if value <= 0:
-            raise ValueError(f"{name.capitalize()} can't be zero or less.")
+            raise ValueException(f"{name.capitalize()} can't be zero or less.")
 
     @staticmethod
     def against_negative(value: int | float, name: str = 'value') -> None:
         """ This method raises exception if given value is negative """
         if value < 0:
-            raise ValueError(f"{name.capitalize()} can't be negative.")
+            raise ValueException(f"{name.capitalize()} can't be negative.")
 
     @staticmethod
-    def against_out_of_range(range: Range, value: int | float, name: str = 'value') -> None:
+    def against_out_of_range(value: int | float, range: Range, name: str = 'value') -> None:
         """ This method raises exception if given value is out of range """
         if value < range.start or value > range.end:
-            raise ValueError(f"{name.capitalize()} can't be out of range {range}.")
+            raise OutOfRangeException(f"{name.capitalize()} can't be out of range {range}.")
 
     @staticmethod
     def against_none(value, name: str = 'value') -> None:
         """ This method raises exception if given value is none """
         if value is None:
-            raise ValueError(f"{name.capitalize()} can't be None.")
+            raise ValueException(f"{name.capitalize()} can't be None.")
 
     @staticmethod
     def against_empty(value: str | list | tuple | dict | set, name: str = 'value') -> None:
         """ This method raises exception if given value is empty """
         if len(value) == 0:
-            raise ValueError(f"{name.capitalize()} can't be empty.")
+            raise ValueException(f"{name.capitalize()} can't be empty.")
 
     @staticmethod
     def against_whitespace(value: str, name: str = 'value') -> None:
@@ -44,13 +45,13 @@ class Guard:
                 break
 
         if not eligible:
-            raise ValueError(f"{name.capitalize()} can't be whitespace.")
+            raise ValueException(f"{name.capitalize()} can't be whitespace.")
 
     @staticmethod
     def against_size(size: int, value: str | list | tuple, name: str = 'value') -> None:
         """ This method raises exception if given value has exceeded size """
         if len(value) > size:
-            raise ValueError(f"{name.capitalize()} has exceed limit {size}.")
+            raise OutOfRangeException(f"{name.capitalize()} has exceed limit {size}.")
 
     @staticmethod
     def against_none_or_empty(value: str | list | tuple | dict | set | None, name: str = 'value') -> None:
@@ -84,4 +85,4 @@ class Guard:
         valid: bool = bool(re.match(pattern, email))
 
         if not valid:
-            raise ValueError(f"{email} has invalid pattern.")
+            raise WrongEmailException(f"{email} has invalid pattern.")

@@ -1,7 +1,4 @@
-from prototype.ansi.enums.foreground import Foreground
 from prototype.settings import message_settings
-from prototype.ansi.enums.style import Style
-from prototype.ansi.color import Decoration
 from prototype.text.text import Text
 
 

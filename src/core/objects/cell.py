@@ -1,5 +1,4 @@
 from core.enums.cell_state import CellState
-from core.misc.position import Position
 from core.shield.guard import Guard
 from core.objects.coin import Coin
 
@@ -13,6 +12,7 @@ class Cell:
     # Constructor
     def __init__(self):
         self.__coin: Coin | None = None
+        self.__state: CellState = CellState.EMPTY
 
     ###########
     # Getters #
@@ -25,8 +25,8 @@ class Cell:
 
     @property
     def state(self) -> CellState:
-        """Returns the cell state (Empty / Occupied) """
-        return CellState.OCCUPIED if self.__coin else CellState.EMPTY
+        """Returns the cell state"""
+        return self.__state
 
     ###########
     # Methods #
@@ -40,6 +40,7 @@ class Cell:
             raise Exception("Cell is already occupied.")
 
         self.__coin = coin
+        self.__state = CellState.OCCUPIED
 
     def flip(self) -> None:
         """Flip the coin in this cell"""
@@ -52,6 +53,7 @@ class Cell:
         """Remove and return the coin from this cell"""
         coin = self.__coin
         self.__coin = None
+        self.__state = CellState.EMPTY
         return coin
 
     def __repr__(self) -> str:
